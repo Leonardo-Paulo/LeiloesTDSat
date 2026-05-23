@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -49,11 +52,14 @@ public class cadastroVIEW extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Valor:");
 
+        cadastroNome.setText("Bandeja");
         cadastroNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cadastroNomeActionPerformed(evt);
             }
         });
+
+        cadastroValor.setText("250,00");
 
         btnCadastrar.setBackground(new java.awt.Color(153, 255, 255));
         btnCadastrar.setText("Cadastrar");
@@ -140,16 +146,44 @@ public class cadastroVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroNomeActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        ProdutosDTO produto = new ProdutosDTO();
-        String nome = cadastroNome.getText();
-        String valor = cadastroValor.getText();
-        String status = "A Venda";
-        produto.setNome(nome);
-        produto.setValor(Integer.parseInt(valor));
-        produto.setStatus(status);
+         
+        //Mensagem preenchimento do campos
+    if (cadastroNome.getText().isEmpty() || cadastroValor.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+        return;
+    }
+
+    try {
         
+        //Coleta de dados
+        ProdutosDTO produto = new ProdutosDTO();
+        produto.setNome(cadastroNome.getText());
+        produto.setValor(Integer.parseInt(cadastroValor.getText()));
+        produto.setStatus("A Venda");
+
+        //Envio para o DAO
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
+
+        //Mensagem de confirmação
+        JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+        limparCampos();
+        
+      //Mensagem de erro
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "No campo Valor, digite apenas números inteiros.");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + e.getMessage());
+    }
+}
+
+    // Método auxiliar para limpar o formulário
+    private void limparCampos() {
+    cadastroNome.setText("");
+    cadastroValor.setText("");
+    cadastroNome.requestFocus();
+
+
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
