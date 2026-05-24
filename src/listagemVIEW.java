@@ -1,11 +1,12 @@
-
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
+
 
 /**
  *
@@ -18,9 +19,9 @@ public class listagemVIEW extends javax.swing.JFrame {
      */
     public listagemVIEW() {
         initComponents();
-        listarProdutos();
+        listarProdutos();   
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,6 +46,12 @@ public class listagemVIEW extends javax.swing.JFrame {
 
         listaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -138,7 +145,7 @@ public class listagemVIEW extends javax.swing.JFrame {
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         String id = id_produto_venda.getText();
         
-        ProdutosDAO produtosdao = new ProdutosDAO();
+        ProdutosDAO produtodao = new ProdutosDAO();
         
         //produtosdao.venderProduto(Integer.parseInt(id));
         listarProdutos();
@@ -150,7 +157,14 @@ public class listagemVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        this.dispose();
+        
+
+    cadastroVIEW telaCadastro = new cadastroVIEW();
+    telaCadastro.setVisible(true);
+
+    this.dispose();
+
+
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
@@ -202,6 +216,7 @@ public class listagemVIEW extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void listarProdutos(){
+        
         try {
             ProdutosDAO produtosdao = new ProdutosDAO();
             
@@ -219,7 +234,8 @@ public class listagemVIEW extends javax.swing.JFrame {
                 });
             }
         } catch (Exception e) {
-        }
+    e.printStackTrace();
+}
     
     }
 }
